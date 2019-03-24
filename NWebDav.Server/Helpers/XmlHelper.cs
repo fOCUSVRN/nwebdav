@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
 
@@ -6,7 +7,7 @@ namespace NWebDav.Server.Helpers
 {
     public static class XmlHelper
     {
-        public static string GetXmlValue<TEnum>(TEnum value, string defaultValue = null) where TEnum : struct
+        public static string GetXmlValue<TEnum>(TEnum value, string defaultValue = null) where TEnum : Enum
         {
             // Obtain the member information
             var memberInfo = typeof(TEnum).GetMember(value.ToString()).FirstOrDefault();

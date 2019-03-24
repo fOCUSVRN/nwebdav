@@ -186,8 +186,8 @@ namespace NWebDav.Server.Handlers
                     if (propertyManager.Properties.Any(p => p.Name == propertyName))
                     {
                         var value = await propertyManager.GetPropertyAsync(httpContext, item, propertyName).ConfigureAwait(false);
-                        if (value is IEnumerable<XElement>)
-                            value = ((IEnumerable<XElement>) value).Cast<object>().ToArray();
+                        if (value is IEnumerable<XElement> elements)
+                            value = elements.Cast<object>().ToArray();
 
                         // Make sure we use the same 'prop' tag to add all properties
                         var xProp = xPropStatValues.Element(WebDavNamespaces.DavNs + "prop");

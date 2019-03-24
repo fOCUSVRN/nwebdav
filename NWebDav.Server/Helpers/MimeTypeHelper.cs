@@ -1010,10 +1010,10 @@ namespace NWebDav.Server.Helpers
         public static string GetMimeType(string fileName)
         {
             var extension = Path.GetExtension(fileName);
+
             if (!string.IsNullOrEmpty(extension))
             {
-                string mimeType;
-                if (s_typeMap.TryGetValue(extension.Substring(1).ToLowerInvariant(), out mimeType))
+                if (s_typeMap.TryGetValue(extension.Substring(1).ToLowerInvariant(), out var mimeType))
                     return mimeType;
             }
 

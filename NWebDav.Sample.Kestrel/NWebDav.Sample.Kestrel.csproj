@@ -6,6 +6,7 @@
     <Title>NWebDav example using Kestrel</Title>
     <OutputType>Exe</OutputType>
     <Description>WebDAV server sample application (using Kestrel).</Description>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

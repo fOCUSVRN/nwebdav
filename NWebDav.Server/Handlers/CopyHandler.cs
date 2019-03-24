@@ -120,8 +120,7 @@ namespace NWebDav.Server.Handlers
             }
 
             // Check if the source is a collection and we are requested to copy recursively
-            var sourceCollection = source as IStoreCollection;
-            if (sourceCollection != null && depth > 0)
+            if (source is IStoreCollection sourceCollection && depth > 0)
             {
                 // The result should also contain a collection
                 var newCollection = (IStoreCollection)copyResult.Item;

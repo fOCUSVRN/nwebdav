@@ -1,9 +1,8 @@
-﻿using System;
+﻿using NWebDav.Server.Helpers;
+using NWebDav.Server.Http;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using NWebDav.Server.Helpers;
-using NWebDav.Server.Http;
 
 namespace NWebDav.Server.Stores
 {
@@ -48,12 +47,9 @@ namespace NWebDav.Server.Stores
             var subUri = UriHelper.Combine(uri, endOfPrefix >= 0 ? requestedPath.Substring(endOfPrefix + 1) : string.Empty);
 
             // Try to find the store
-            IStore store;
-            if (!_storeResolvers.TryGetValue(prefix, out store))
-                return default(T);
-
-            // Resolve via the action
-            return action(store, subUri);
+            return !_storeResolvers.TryGetValue(prefix, out var store)
+                ? default
+                : action(store, subUri); // Resolve via the action
         }
     }
 }
