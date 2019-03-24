@@ -100,6 +100,16 @@ namespace NWebDav.Server
                 // Start the stopwatch
                 var sw = Stopwatch.StartNew();
 
+
+                var authData = request.GetHeaderValue("Authorization");
+
+                if (string.IsNullOrEmpty(authData))
+                {
+                    response.SetHeaderValue("WWW-Authenticate", @"Basic realm=""server""");
+                    response.SetStatus(DavStatusCode.Unauthorized);
+                    return;
+                }
+
                 IRequestHandler requestHandler;
                 try
                 {

@@ -1,10 +1,9 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
-
 using NWebDav.Server;
-using NWebDav.Server.Stores;
 using NWebDav.Server.AspNetCore;
+using NWebDav.Server.Stores;
+using System;
 
 namespace NWebDav.Sample.Kestrel
 {
@@ -23,6 +22,7 @@ namespace NWebDav.Sample.Kestrel
             // Create WebDAV dispatcher
             var homeFolder = Environment.GetEnvironmentVariable("HOME") ?? Environment.GetEnvironmentVariable("USERPROFILE");
             var webDavDispatcher = new WebDavDispatcher(new DiskStore(homeFolder), requestHandlerFactory);
+
 
             app.Run(async context =>
             {

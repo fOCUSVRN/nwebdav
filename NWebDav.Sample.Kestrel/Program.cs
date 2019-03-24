@@ -17,11 +17,9 @@ namespace NWebDav.Sample.Kestrel
             LoggerFactory.Factory = adapter;
 
             var host = new WebHostBuilder()
-                .UseKestrel(options => {
-                    options.ThreadCount = 4;
-                    //options.UseConnectionLogging();
-                })
+                .UseKestrel()
                 .UseStartup<Startup>()
+                .UseUrls("https://*:5062")
                 .Build();
 
             host.Run();
