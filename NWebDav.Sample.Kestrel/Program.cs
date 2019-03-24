@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
-
-using NWebDav.Server.Logging;
-
+using Microsoft.Extensions.Configuration;
 using NWebDav.Sample.Kestrel.LogAdapters;
+using NWebDav.Server.Logging;
 
 namespace NWebDav.Sample.Kestrel
 {
@@ -10,16 +9,20 @@ namespace NWebDav.Sample.Kestrel
     {
         private static void Main(string[] args)
         {
-            // Use debug output for logging
+         // Use debug output for logging
             var adapter = new DebugOutputAdapter();
             adapter.LogLevels.Add(LogLevel.Debug);
             adapter.LogLevels.Add(LogLevel.Info);
             LoggerFactory.Factory = adapter;
 
+            var hostingConfig = new ConfigurationBuilder()
+            .AddJsonFile("hosting.json", optional: false)
+            .Build();
+
             var host = new WebHostBuilder()
-                .UseKestrel()
+                .UseKestrel(options => { options.Limits.MaxRequestBodySize = null; })
+                .UseConfiguration(hostingConfig)
                 .UseStartup<Startup>()
-                .UseUrls("https://*:5062")
                 .Build();
 
             host.Run();
